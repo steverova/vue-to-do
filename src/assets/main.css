@@ -1,0 +1,19 @@
+
+.btn-add-task{
+  border-top-right-radius: 25px !important;
+  border-bottom-right-radius: 25px !important;
+}
+
+.input-add-task{
+  border-top-left-radius: 25px !important;
+  border-bottom-left-radius: 25px !important;
+}
+
+.tab-content{
+  height: 40em;
+  overflow-y: scroll;
+}
+
+.hover-effect:hover {
+  background-color: #0b5dd71c;
+}
