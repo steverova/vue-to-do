@@ -24,8 +24,8 @@ onMounted(() => { })
 </script>
 
 <template>
-  <div style="background-color: #242424" class="content py-5 min-vh-100">
-    <div class="col-sm-11 col-md-8 col-lg-7 col-xxl-4 mx-auto shadow p-3 rounded rounded-3 bg-light">
+  <div style="background-color: #242424" class="content p-3 min-vh-100">
+    <div class="col-sm-8 col-md-8 col-lg-7 col-xxl-4 mx-auto shadow p-3 rounded rounded-3 bg-light">
       <div class="input-group mb-3 border border-5 rounded rounded-5">
         <input v-model="task" type="text" class="input-add-task form-control" placeholder="Add new Task..."
           aria-label="Recipient's username" aria-describedby="button-addon2" />
