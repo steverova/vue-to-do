@@ -57,8 +57,8 @@ onMounted(() => { })
       <hr />
 
       <div class="tab-content" id="pills-tabContent">
-        <div v-for="(item, index) in data.todos" v-bind:key="index">
-          <div class="d-flex align-items-center border border-2 rounded rounded-3 p-3 mb-2 hover-effect">
+        <div class="px-3" v-for="(item, index) in data.todos" v-bind:key="index">
+          <div class="d-flex align-items-center border border-2 rounded rounded-3 p-2 mb-2 hover-effect">
             <div class="me-4">
               <input class="form-check-input" type="checkbox" v-model="item.completed" id="myCheckbox" />
             </div>
