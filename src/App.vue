@@ -81,11 +81,11 @@ onMounted(() => {
 <template>
   <div style="background-color: #242424" class="content p-3 min-vh-100">
 
-    <div class="dropdown">
+    <div class="dropdown shadow">
       <button class="btn btn-light rounded-pill mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fa-solid fa-ellipsis"></i>
       </button>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu shadow">
         <li> <button @click="downloadIndexedDB" class="dropdown-item"><i class="fa-solid fa-circle-arrow-down "></i>
             Export
             Data</button></li>
