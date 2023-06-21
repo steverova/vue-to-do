@@ -48,6 +48,7 @@ const add = () => {
 
   addTask(newTask);
   get();
+  task.value = "";
 
   toast.success("Task added successfully", {
     timeout: 2000
