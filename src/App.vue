@@ -88,8 +88,6 @@ onMounted(() => {
         </button>
       </div>
 
-      <button @click="get" class="btn btn-dark">GET</button>
-
       <ul class="border border-5 rounded rounded-5 nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="rounded rounded-5 nav-link active" id="pills-home-tab" data-bs-toggle="pill"
