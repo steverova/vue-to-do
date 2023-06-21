@@ -3,7 +3,7 @@
 import { ref, onMounted } from 'vue'
 import { useToast } from "vue-toastification";
 import openDatabase from './Database/IndexDB';
-import { addTask, getTasks, deleteTask, updateStatusTask } from "./Database/services";
+import { addTask, getTasks, deleteTask, updateStatusTask, downloadIndexedDB} from "./Database/services";
 import Swal from 'sweetalert2'
 
 const task = ref('');
@@ -143,6 +143,17 @@ onMounted(() => {
           ...C
         </div>
       </div>
+
     </div>
+
+    <div class="col-sm-8 col-md-8 col-lg-7 col-xxl-4 mx-auto shadow p-3 rounded rounded-3 bg-light mt-3">
+      <button @click="downloadIndexedDB" class="btn"><i class="fa-solid fa-circle-arrow-down "></i> Export Data</button>
+    </div>
+
+    <div class="col-sm-8 col-md-8 col-lg-7 col-xxl-4 mx-auto shadow p-3 rounded rounded-3 bg-light mt-3">
+      <label for="input-file"  class="btn"><i class="fa-solid fa-cloud-arrow-up"></i> Import Data</label>
+      <input hidden id="input-file" type="file">
+    </div>
+
   </div>
 </template>
