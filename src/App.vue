@@ -3,7 +3,7 @@
 import { ref, onMounted } from 'vue'
 import { useToast } from "vue-toastification";
 import openDatabase from './Database/IndexDB';
-import { addTask, getTasks, deleteTask, updateStatusTask, downloadIndexedDB} from "./Database/services";
+import { addTask, getTasks, deleteTask, updateStatusTask, downloadIndexedDB } from "./Database/services";
 import Swal from 'sweetalert2'
 
 const task = ref('');
@@ -80,6 +80,26 @@ onMounted(() => {
 
 <template>
   <div style="background-color: #242424" class="content p-3 min-vh-100">
+
+    <div class="dropdown">
+      <button class="btn btn-light rounded-pill mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa-solid fa-ellipsis"></i>
+      </button>
+      <ul class="dropdown-menu">
+        <li> <button @click="downloadIndexedDB" class="dropdown-item"><i class="fa-solid fa-circle-arrow-down "></i>
+            Export
+            Data</button></li>
+        <li><label for="input-file" class="btn"><i class="fa-solid fa-cloud-arrow-up"></i> Import Data</label>
+          <input hidden id="input-file" type="file">
+        </li>
+        <hr>
+
+        <li><a class="dropdown-item" href="https://github.com/steverova" target="_blank"><i
+              class="fs-4 fa-brands fa-github-alt"></i><span class="fs-4"> steverova</span></a></li>
+      </ul>
+    </div>
+
+
     <div class="col-sm-8 col-md-8 col-lg-7 col-xxl-4 mx-auto shadow p-3 rounded rounded-3 bg-light">
       <div class="input-group mb-3 border border-5 rounded rounded-5">
         <input v-model="task" type="text" class="input-add-task form-control" placeholder="Add new Task..."
@@ -144,15 +164,6 @@ onMounted(() => {
         </div>
       </div>
 
-    </div>
-
-    <div class="col-sm-8 col-md-8 col-lg-7 col-xxl-4 mx-auto shadow p-3 rounded rounded-3 bg-light mt-3">
-      <button @click="downloadIndexedDB" class="btn"><i class="fa-solid fa-circle-arrow-down "></i> Export Data</button>
-    </div>
-
-    <div class="col-sm-8 col-md-8 col-lg-7 col-xxl-4 mx-auto shadow p-3 rounded rounded-3 bg-light mt-3">
-      <label for="input-file"  class="btn"><i class="fa-solid fa-cloud-arrow-up"></i> Import Data</label>
-      <input hidden id="input-file" type="file">
     </div>
 
   </div>
