@@ -1,27 +1,81 @@
 <script setup>
+
 import { ref, onMounted } from 'vue'
-import data from './assets/data.json'
 import { useToast } from "vue-toastification";
+import openDatabase from './Database/IndexDB';
+import { addTask, getTasks, deleteTask, updateStatusTask } from "./Database/services";
+import Swal from 'sweetalert2'
 
 const task = ref('');
+const jsonTasks = ref([]);
+
 const toast = useToast({
   position: 'bottom-center'
 });
 
-const deleteTask = () => {
-  alert("deleted");
+const deleteT = (id) => {
+
+  Swal.fire({
+    title: 'Are you sure \n to delete this task?',
+    showCancelButton: true,
+    confirmButtonText: 'Delete',
+    confirmButtonColor: "#f2433c",
+    denyButtonText: `Don't save`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      deleteTask(id);
+      get();
+    }
+  })
 }
 
-const addTask = () => {
-  console.log(task.value);
-  toast.success("Task added successfull", {
+const updateStatus = (id, status) => {
+
+  console.log(id);
+  console.log(status)
+  updateStatusTask(id, !status);
+  // get();
+}
+
+const add = () => {
+
+  const newTask = {
+    task: task.value,
+    status: false,
+    date: formatDate()
+  }
+
+  addTask(newTask);
+  get();
+
+  toast.success("Task added successfully", {
     timeout: 2000
   });
 }
 
+const get = () => {
+  getTasks((tasks) => {
+    jsonTasks.value = tasks;
+  });
+}
 
-onMounted(() => { })
+function formatDate() {
+  const date = new Date();
+  const year = date.toLocaleString('default', { year: 'numeric' });
+  const month = date.toLocaleString('default', { month: '2-digit' });
+  const day = date.toLocaleString('default', { day: '2-digit' });
+
+  return [year, month, day].join('-');
+}
+
+onMounted(() => {
+  openDatabase();
+  get();
+})
 </script>
+
+
 
 <template>
   <div style="background-color: #242424" class="content p-3 min-vh-100">
@@ -29,10 +83,12 @@ onMounted(() => { })
       <div class="input-group mb-3 border border-5 rounded rounded-5">
         <input v-model="task" type="text" class="input-add-task form-control" placeholder="Add new Task..."
           aria-label="Recipient's username" aria-describedby="button-addon2" />
-        <button @click="addTask" class="btn btn-primary btn-add-task" type="button" id="button-addon2">
+        <button @click="add" class="btn btn-primary btn-add-task" type="button" id="button-addon2">
           <i class="fa-solid fa-plus"></i>
         </button>
       </div>
+
+      <button @click="get" class="btn btn-dark">GET</button>
 
       <ul class="border border-5 rounded rounded-5 nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -57,19 +113,21 @@ onMounted(() => { })
       <hr />
 
       <div class="tab-content" id="pills-tabContent">
-        <div class="px-3" v-for="(item, index) in data.todos" v-bind:key="index">
+        <div class="px-3" v-for="(item, index) in jsonTasks" v-bind:key="index">
           <div class="d-flex align-items-center border border-2 rounded rounded-3 p-2 mb-2 hover-effect">
             <div class="me-4">
-              <input class="form-check-input" type="checkbox" v-model="item.completed" id="myCheckbox" />
+              <input @click="updateStatus(item.id, item.status)" class="form-check-input" type="checkbox"
+                v-model="item.status" id="myCheckbox" />
             </div>
 
             <div class="flex-grow-1 text-center me-3">
-              <p class="text-start" :class="{ 'text-decoration-line-through': item.completed }">
-                {{ item.todo }}
+              <p class="text-start" :class="{ 'text-decoration-line-through': item.status }">
+                {{ item.task }}
               </p>
             </div>
             <div class="ms-auto">
-              <button @click="deleteTask" type="button" class="btn btn-danger btn-sm rounded-pill">
+
+              <button @click="deleteT(item.id)" type="button" class="btn btn-danger btn-sm rounded-pill">
                 <i class="fa-solid fa-trash-can"></i>
               </button>
             </div>
